@@ -1,6 +1,9 @@
 package fr.cybercicco;
 
-import java.io.IOException;
+import fr.cybercicco.lexer.Lexer;
+import fr.cybercicco.lexer.SyntaxKind;
+import fr.cybercicco.lexer.SyntaxToken;
+
 import java.util.Scanner;
 
 public class Main {
@@ -9,13 +12,16 @@ public class Main {
     public static void main(String[] args) {
         while(true){
             var line = scanner.nextLine();
+            Lexer lexer = new Lexer(line);
             if(line.isEmpty() || line.isBlank()){
                 return;
             }
-            if(line.equals("ui")){
-                System.out.println("uiiiiiiiii");
-            } else {
-                System.out.println("Input invalide");
+            while(true){
+                SyntaxToken token = lexer.nextToken();
+                if(token.getKind() == SyntaxKind.ENDOFLINE_TOKEN){
+                    break;
+                }
+                System.out.println(token);
             }
         }
     }

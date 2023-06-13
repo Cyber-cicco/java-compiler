@@ -16,6 +16,9 @@ public class Lexer {
     }
 
     public SyntaxToken nextToken(){
+        if(_position >= _text.length()){
+            return new SyntaxToken(SyntaxKind.ENDOFLINE_TOKEN, _position, "\0", null);
+        }
         if(Character.isDigit(current())){
             int start = _position;
             while (Character.isDigit(current())){
@@ -34,22 +37,16 @@ public class Lexer {
             String text = _text.substring(start, _position);
             return new SyntaxToken(SyntaxKind.WHITESPACE_TOKEN, start, text, null);
         }
-        switch (current()){
-            case '+':
-                return new SyntaxToken(SyntaxKind.PLUS_TOKEN, _position++, "+", null);
-            case '-':
-                return new SyntaxToken(SyntaxKind.MINUS_TOKEN, _position++, "-", null);
-            case '*':
-                return new SyntaxToken(SyntaxKind.MULT_TOKEN, _position++, "*", null);
-            case '/':
-                return new SyntaxToken(SyntaxKind.DIV_TOKEN, _position++, "/", null);
-            case '%':
-                return new SyntaxToken(SyntaxKind.MODULO_TOKEN, _position++, "%", null);
-            case '(':
-                return new SyntaxToken(SyntaxKind.OPENPARENTHESIS_TOKEN, _position++, "(", null);
-            case ')':
-                return new SyntaxToken(SyntaxKind.CLOSEPARENTHESIS_TOKEN, _position++, ")", null);
-        }
-        return null;
+        return switch (current()) {
+            case '+' -> new SyntaxToken(SyntaxKind.PLUS_TOKEN, _position++, "+", null);
+            case '-' -> new SyntaxToken(SyntaxKind.MINUS_TOKEN, _position++, "-", null);
+            case '*' -> new SyntaxToken(SyntaxKind.MULT_TOKEN, _position++, "*", null);
+            case '/' -> new SyntaxToken(SyntaxKind.DIV_TOKEN, _position++, "/", null);
+            case '%' -> new SyntaxToken(SyntaxKind.MODULO_TOKEN, _position++, "%", null);
+            case '(' -> new SyntaxToken(SyntaxKind.OPENPARENTHESIS_TOKEN, _position++, "(", null);
+            case ')' -> new SyntaxToken(SyntaxKind.CLOSEPARENTHESIS_TOKEN, _position++, ")", null);
+            default ->
+                    new SyntaxToken(SyntaxKind.BAD_TOKEN, _position++, _text.substring(_position - 1, _position), null);
+        };
     }
 }

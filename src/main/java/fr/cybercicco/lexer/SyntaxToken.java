@@ -1,7 +1,57 @@
 package fr.cybercicco.lexer;
 
 public class SyntaxToken {
-    public SyntaxToken(SyntaxKind kind, int position, String text, Object value){
+    private SyntaxKind kind;
+    private int position;
+    private String text;
+    private Object value;
 
+    public SyntaxToken(SyntaxKind kind, int position, String text, Object value) {
+        this.kind = kind;
+        this.position = position;
+        this.text = text;
+        this.value = value;
+    }
+
+    public SyntaxKind getKind() {
+        return kind;
+    }
+
+    public void setKind(SyntaxKind kind) {
+        this.kind = kind;
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public Object getValue() {
+        return value;
+    }
+
+    public void setValue(Object value) {
+        this.value = value;
+    }
+
+    @Override
+    public String toString() {
+        return "SyntaxToken{" +
+                "kind=" + kind +
+                ", position=" + position +
+                ", text='" + text + '\'' +
+                ", value=" + value +
+                '}';
     }
 }
