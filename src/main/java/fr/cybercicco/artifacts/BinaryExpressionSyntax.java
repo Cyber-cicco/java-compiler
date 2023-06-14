@@ -20,14 +20,19 @@ public class BinaryExpressionSyntax extends ExpressionSyntax{
     }
 
     public String toString(String indent) {
-        String additionalIndent = "    ";
+        String additionalIndent = "|___";
+        StringBuilder str = new StringBuilder();
+        for(int i = 0; i < indent.length(); i++){
+             str.append(" ");
+        }
+        String newIndent = str.toString();
         return  indent
                 + this.kind
                 + " \n"
-                + this.leftToken.toString(indent + additionalIndent)
+                + this.leftToken.toString(newIndent + additionalIndent)
                 + " \n"
-                + this.operatorToken.toString(indent + additionalIndent)
+                + this.operatorToken.toString(newIndent + additionalIndent)
                 + " \n"
-                + this.rightToken.toString(indent + additionalIndent);
+                + this.rightToken.toString(newIndent + additionalIndent);
     }
 }

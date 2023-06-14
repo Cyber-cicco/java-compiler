@@ -70,8 +70,7 @@ public class SyntaxToken {
     public String toString(String indent){
         return  indent
                 + this.kind
-                + "\n"
-                + indent + "    "
-                + this.text;
+                + " "
+                + this.value;
     }
 }

@@ -23,6 +23,8 @@ public class Parser {
 
     /**L'array de tokens sur lequel le Parser va effectuer ses traitements*/
     private SyntaxToken[] _tokens;
+    /**Liste d'erreurs survenues lors du parsing des tokens.*/
+    private List<String> _diagnostics = new ArrayList<>();
 
     /**
      * Constructeur de la classe.
