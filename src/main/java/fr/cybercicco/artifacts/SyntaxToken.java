@@ -71,6 +71,6 @@ public class SyntaxToken {
         return  indent
                 + this.kind
                 + " "
-                + this.value;
+                + this.text;
     }
 }

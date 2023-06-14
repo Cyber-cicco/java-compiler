@@ -8,6 +8,7 @@ import java.util.Scanner;
 public class Main {
 
     public static Scanner scanner = new Scanner(System.in);
+
     public static void main(String[] args) {
         while(true){
             var line = scanner.nextLine();
@@ -15,8 +16,12 @@ public class Main {
             if(line.isEmpty() || line.isBlank()){
                 return;
             }
-            ExpressionSyntax expression =  parser.parse();
-            System.out.println(expression.toString(""));
+            SyntaxTree tree =  parser.parse();
+            System.out.println(tree.getRoot().toString(""));
+            if(parser.getDiagnostics().size() != 0){
+                parser.getDiagnostics().forEach(System.out::println);
+                parser.getDiagnostics().clear();
+            }
         }
     }
 }

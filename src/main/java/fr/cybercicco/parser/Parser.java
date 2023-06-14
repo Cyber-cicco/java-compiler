@@ -1,10 +1,10 @@
 package fr.cybercicco.parser;
 
+import fr.cybercicco.SyntaxTree;
 import fr.cybercicco.artifacts.*;
 import fr.cybercicco.lexer.Lexer;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -44,6 +44,7 @@ public class Parser {
             }
         } while( token.getKind() != SyntaxKind.ENDOFFILE_TOKEN);
         _tokens = tokens.toArray(new SyntaxToken[tokens.size()]);
+        lexer.getDiagnostics().forEach(diag -> _diagnostics.add(diag));
     }
 
     /**
@@ -80,6 +81,8 @@ public class Parser {
      * */
     private SyntaxToken match(SyntaxKind syntaxKind){
         if(current().getKind() == syntaxKind) return nextToken();
+        _diagnostics.add("ERROR : Invalid token for caclculator : " + current() + " of type "
+                + current().getKind() + " : expected " + syntaxKind);
         return new SyntaxToken(syntaxKind, current().getPosition(), null, null);
     }
 
@@ -97,7 +100,13 @@ public class Parser {
      * left = {leftToken : {leftToken : 1, operatorToken : +, rightToken : 2}, operator : -, right = 3}
      * end
      * */
-    public ExpressionSyntax parse(){
+    public SyntaxTree parse(){
+        ExpressionSyntax expression = parseExpression();
+        SyntaxToken endOfFileToken = match(SyntaxKind.ENDOFFILE_TOKEN);
+        return new SyntaxTree(expression, endOfFileToken, _diagnostics.toArray(new String[_diagnostics.size()]));
+    }
+
+    private ExpressionSyntax parseExpression() {
         //On récupère un NumberExpressionSyntax. Si le token courant n'est pas un nombre, on ne passe
         //pas au suivant. Si c'est un nombre, on passe au token suivant.
         ExpressionSyntax left = parsePrimaryExpression();
@@ -118,4 +127,7 @@ public class Parser {
         return new NumberExpressionSyntax(numberToken);
     }
 
+    public List<String> getDiagnostics() {
+        return _diagnostics;
+    }
 }
