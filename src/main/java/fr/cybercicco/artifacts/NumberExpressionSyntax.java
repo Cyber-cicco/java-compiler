@@ -8,4 +8,9 @@ public class NumberExpressionSyntax extends ExpressionSyntax {
         this.kind = SyntaxKind.NUMBER_EXPRESSION;
         this.numberToken = numberToken;
     }
+
+    @Override
+    public String toString(String indent) {
+        return this.numberToken.toString(indent);
+    }
 }

@@ -66,4 +66,12 @@ public class SyntaxToken {
                 ", value=" + value +
                 '}';
     }
+
+    public String toString(String indent){
+        return  indent
+                + this.kind
+                + "\n"
+                + indent + "    "
+                + this.text;
+    }
 }

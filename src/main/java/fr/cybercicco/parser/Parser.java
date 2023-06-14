@@ -41,7 +41,7 @@ public class Parser {
                 tokens.add(token);
             }
         } while( token.getKind() != SyntaxKind.ENDOFFILE_TOKEN);
-        _tokens = (SyntaxToken[]) Arrays.stream(_tokens).toArray();
+        _tokens = tokens.toArray(new SyntaxToken[tokens.size()]);
     }
 
     /**

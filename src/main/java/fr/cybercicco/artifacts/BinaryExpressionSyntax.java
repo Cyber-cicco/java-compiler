@@ -18,4 +18,16 @@ public class BinaryExpressionSyntax extends ExpressionSyntax{
         this.rightToken = rightToken;
         this.kind = SyntaxKind.BINARY_EXPRESSION;
     }
+
+    public String toString(String indent) {
+        String additionalIndent = "    ";
+        return  indent
+                + this.kind
+                + " \n"
+                + this.leftToken.toString(indent + additionalIndent)
+                + " \n"
+                + this.operatorToken.toString(indent + additionalIndent)
+                + " \n"
+                + this.rightToken.toString(indent + additionalIndent);
+    }
 }
