@@ -1,8 +1,8 @@
 package fr.cybercicco;
 
 import fr.cybercicco.lexer.Lexer;
-import fr.cybercicco.lexer.SyntaxKind;
-import fr.cybercicco.lexer.SyntaxToken;
+import fr.cybercicco.artifacts.SyntaxKind;
+import fr.cybercicco.artifacts.SyntaxToken;
 
 import java.util.Scanner;
 
@@ -18,7 +18,7 @@ public class Main {
             }
             while(true){
                 SyntaxToken token = lexer.nextToken();
-                if(token.getKind() == SyntaxKind.ENDOFLINE_TOKEN){
+                if(token.getKind() == SyntaxKind.ENDOFFILE_TOKEN){
                     break;
                 }
                 System.out.println(token);

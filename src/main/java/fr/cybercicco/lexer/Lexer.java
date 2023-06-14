@@ -1,5 +1,8 @@
 package fr.cybercicco.lexer;
 
+import fr.cybercicco.artifacts.SyntaxKind;
+import fr.cybercicco.artifacts.SyntaxToken;
+
 public class Lexer {
 
     private String _text;
@@ -17,7 +20,7 @@ public class Lexer {
 
     public SyntaxToken nextToken(){
         if(_position >= _text.length()){
-            return new SyntaxToken(SyntaxKind.ENDOFLINE_TOKEN, _position, "\0", null);
+            return new SyntaxToken(SyntaxKind.ENDOFFILE_TOKEN, _position, "\0", null);
         }
         if(Character.isDigit(current())){
             int start = _position;

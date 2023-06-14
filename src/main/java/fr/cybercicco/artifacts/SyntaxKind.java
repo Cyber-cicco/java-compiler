@@ -1,4 +1,4 @@
-package fr.cybercicco.lexer;
+package fr.cybercicco.artifacts;
 
 public enum SyntaxKind {
     NUMBER_TOKEN,
@@ -11,5 +11,7 @@ public enum SyntaxKind {
     OPENPARENTHESIS_TOKEN,
     CLOSEPARENTHESIS_TOKEN,
     BAD_TOKEN,
-    ENDOFLINE_TOKEN
+    ENDOFFILE_TOKEN,
+    NUMBER_EXPRESSION,
+    BINARY_EXPRESSION,
 }

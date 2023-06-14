@@ -1,9 +1,21 @@
-package fr.cybercicco.lexer;
+package fr.cybercicco.artifacts;
 
+/**
+ * Classe permettant de stocker tous les éléments du texte parse ayant une signification pour
+ * le traitement de celui-ci.
+ * L'attribut kind va détermminer la façon dont vont être traités les différents tokens.
+ * */
 public class SyntaxToken {
+    /**Le type de token dont il s'agit*/
     private SyntaxKind kind;
+
+    /**La position du token dans la chaine de tokens récupérée par le Parser*/
     private int position;
+    /**Le contenu texte du token. Par exemple, le contenu d'un token de type
+     * PLUS_OPERATOR sera "+"*/
     private String text;
+    /**La valeur du token. Dans le cas d'un SyntaxToken de kind NUMBER_TOKEN,
+     * va représenter sa valeur numérique*/
     private Object value;
 
     public SyntaxToken(SyntaxKind kind, int position, String text, Object value) {
