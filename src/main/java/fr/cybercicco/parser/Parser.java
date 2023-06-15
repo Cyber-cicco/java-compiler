@@ -1,6 +1,5 @@
 package fr.cybercicco.parser;
 
-import fr.cybercicco.SyntaxTree;
 import fr.cybercicco.artifacts.*;
 import fr.cybercicco.lexer.Lexer;
 
@@ -126,8 +125,7 @@ public class Parser {
         SyntaxToken numberToken = match(SyntaxKind.NUMBER_TOKEN);
         return new NumberExpressionSyntax(numberToken);
     }
-
-    public List<String> getDiagnostics() {
+public List<String> getDiagnostics() {
         return _diagnostics;
     }
 }

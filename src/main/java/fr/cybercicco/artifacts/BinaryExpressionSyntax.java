@@ -35,4 +35,37 @@ public class BinaryExpressionSyntax extends ExpressionSyntax{
                 + " \n"
                 + this.rightToken.toString(newIndent + additionalIndent);
     }
+
+    public SyntaxToken getOperatorToken() {
+        return operatorToken;
+    }
+
+    public void setOperatorToken(SyntaxToken operatorToken) {
+        this.operatorToken = operatorToken;
+    }
+
+    public ExpressionSyntax getLeftToken() {
+        return leftToken;
+    }
+
+    public void setLeftToken(ExpressionSyntax leftToken) {
+        this.leftToken = leftToken;
+    }
+
+    public ExpressionSyntax getRightToken() {
+        return rightToken;
+    }
+
+    public void setRightToken(ExpressionSyntax rightToken) {
+        this.rightToken = rightToken;
+    }
+
+    @Override
+    public String toString() {
+        return "BinaryExpressionSyntax{" +
+                "operatorToken=" + operatorToken +
+                ", leftToken=" + leftToken +
+                ", rightToken=" + rightToken +
+                '}';
+    }
 }

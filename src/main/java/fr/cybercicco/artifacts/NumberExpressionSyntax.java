@@ -13,4 +13,19 @@ public class NumberExpressionSyntax extends ExpressionSyntax {
     public String toString(String indent) {
         return this.numberToken.toString(indent);
     }
+
+    public SyntaxToken getNumberToken() {
+        return numberToken;
+    }
+
+    public void setNumberToken(SyntaxToken numberToken) {
+        this.numberToken = numberToken;
+    }
+
+    @Override
+    public String toString() {
+        return "NumberExpressionSyntax{" +
+                "numberToken=" + numberToken +
+                '}';
+    }
 }

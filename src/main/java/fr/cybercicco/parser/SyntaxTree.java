@@ -1,4 +1,4 @@
-package fr.cybercicco;
+package fr.cybercicco.parser;
 
 import fr.cybercicco.artifacts.ExpressionSyntax;
 import fr.cybercicco.artifacts.SyntaxToken;
