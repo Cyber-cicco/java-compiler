@@ -1,9 +1,6 @@
 package fr.cybercicco.parser;
 
-import fr.cybercicco.artifacts.BinaryExpressionSyntax;
-import fr.cybercicco.artifacts.ExpressionSyntax;
-import fr.cybercicco.artifacts.NumberExpressionSyntax;
-import fr.cybercicco.artifacts.SyntaxKind;
+import fr.cybercicco.artifacts.*;
 
 public class Evalulator {
     private final ExpressionSyntax _root;
@@ -37,6 +34,9 @@ public class Evalulator {
                 return left / right;
             }
             throw new RuntimeException("Unexpected Binary operator : " + expression.getOperatorToken().getKind());
+        }
+        if(node.getClass().equals(ParenthesiseExpressionSyntax.class)){
+            return evaluateExpression(((ParenthesiseExpressionSyntax) node).getExpression());
         }
         throw new RuntimeException("Unexpected node : " + node.getKind());
     }

@@ -41,8 +41,13 @@ public class Lexer {
                 ++_position;
             }
             String text = _text.substring(start, _position);
-            int value = Integer.parseInt(text);
-            return new SyntaxToken(SyntaxKind.NUMBER_TOKEN, start, text, value);
+            try{
+                int value = Integer.parseInt(text);
+                return new SyntaxToken(SyntaxKind.NUMBER_TOKEN, start, text, value);
+            } catch (NumberFormatException e){
+                _diagnostics.add("ERROR : invalid string input for number of type i32 : '" + text + "'");
+                return new SyntaxToken(SyntaxKind.BAD_TOKEN, start, text, null);
+            }
 
         }
         if(Character.isWhitespace(current())){

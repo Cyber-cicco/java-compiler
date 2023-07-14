@@ -100,19 +100,33 @@ public class Parser {
      * end
      * */
     public SyntaxTree parse(){
-        ExpressionSyntax expression = parseExpression();
+        ExpressionSyntax expression = parseTerm();
         SyntaxToken endOfFileToken = match(SyntaxKind.ENDOFFILE_TOKEN);
         return new SyntaxTree(expression, endOfFileToken, _diagnostics.toArray(new String[_diagnostics.size()]));
     }
 
-    private ExpressionSyntax parseExpression() {
+    private ExpressionSyntax parseTerm() {
+        //On récupère un NumberExpressionSyntax. Si le token courant n'est pas un nombre, on ne passe
+        //pas au suivant. Si c'est un nombre, on passe au token suivant.
+        ExpressionSyntax left = parseFactor();
+        //Traitement à effectuer tant que le token actuel représente un opérateur mathématique
+        //de type plus ou moins.
+        while(current().getKind() == SyntaxKind.PLUS_TOKEN
+                || current().getKind() == SyntaxKind.MINUS_TOKEN) {
+            SyntaxToken operatorToken = nextToken();
+            ExpressionSyntax right = parseFactor();
+            left = new BinaryExpressionSyntax(operatorToken, left, right);
+        }
+        return left;
+    }
+    private ExpressionSyntax parseFactor() {
         //On récupère un NumberExpressionSyntax. Si le token courant n'est pas un nombre, on ne passe
         //pas au suivant. Si c'est un nombre, on passe au token suivant.
         ExpressionSyntax left = parsePrimaryExpression();
         //Traitement à effectuer tant que le token actuel représente un opérateur mathématique
         //de type plus ou moins.
-        while(current().getKind() == SyntaxKind.PLUS_TOKEN
-                || current().getKind() == SyntaxKind.MINUS_TOKEN){
+        while(current().getKind() == SyntaxKind.MULT_TOKEN
+                || current().getKind() == SyntaxKind.DIV_TOKEN){
             SyntaxToken operatorToken = nextToken();
             ExpressionSyntax right = parsePrimaryExpression();
             left = new BinaryExpressionSyntax(operatorToken, left, right);
@@ -120,8 +134,17 @@ public class Parser {
         return left;
     }
 
+    private ExpressionSyntax parseExpression(){
+        return parseTerm();
+    }
     /**Permet de parser un nombre dans l'arbre binaire*/
     private ExpressionSyntax parsePrimaryExpression(){
+        if(current().getKind().equals(SyntaxKind.OPENPARENTHESIS_TOKEN)){
+            SyntaxToken left = nextToken();
+            ExpressionSyntax expression = parseExpression();
+            SyntaxToken right = match(SyntaxKind.CLOSEPARENTHESIS_TOKEN);
+            return new ParenthesiseExpressionSyntax(left, expression, right);
+        }
         SyntaxToken numberToken = match(SyntaxKind.NUMBER_TOKEN);
         return new NumberExpressionSyntax(numberToken);
     }

@@ -16,4 +16,5 @@ package fr.cybercicco.artifacts;
 public abstract class ExpressionSyntax extends SyntaxNode {
 
     public abstract String toString(String indent);
+
 }

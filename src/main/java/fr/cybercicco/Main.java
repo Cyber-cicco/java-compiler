@@ -18,7 +18,9 @@ public class Main {
                 return;
             }
             SyntaxTree tree =  parser.parse();
+            System.out.println(tree.getRoot().toString(""));
             if(parser.getDiagnostics().size() != 0){
+                parser.getDiagnostics().forEach(System.out::println);
                 parser.getDiagnostics().clear();
             } else {
                 Evalulator evalulator = new Evalulator(tree.getRoot());
